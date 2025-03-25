@@ -1,0 +1,6 @@
+fastapi[standard]==0.115.11
+uvicorn==0.21.1
+torchvision>=0.15.0
+torchaudio>=2.0.0
+transformers>=4.30.0
+requests>=2.28.0

@@ -1,0 +1,92 @@
+version: "3.8"
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: movies
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  # Development services
+  app_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: movies_app_dev
+    environment:
+      - DB_URL=mysql+pymysql://user:password@db/movies
+      - PYTHONPATH=src
+    ports:
+      - "8000:80"
+    volumes:
+      - ./src:/code/src
+      - ./logs:/code/logs
+    depends_on:
+      - db
+    profiles:
+      - dev
+
+  inference_service_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.inference.dev
+    container_name: inference_service_dev
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./src:/code/src
+      - ./logs:/code/logs
+    depends_on:
+      - db
+    profiles:
+      - dev
+
+  # Production services
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: movies_app
+    environment:
+      - DB_URL=mysql+pymysql://user:password@db/movies
+      - PYTHONPATH=src
+    ports:
+      - "8000:80"
+    volumes:
+      - ./logs:/code/logs
+    depends_on:
+      - db
+    profiles:
+      - prod
+
+  inference_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.inference
+    container_name: inference_service
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./logs:/code/logs
+    depends_on:
+      - db
+    profiles:
+      - prod
+
+volumes:
+  mariadb_data:
