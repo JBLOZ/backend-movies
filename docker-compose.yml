@@ -1,5 +1,10 @@
 version: "3.8"
 
+# version produccion con cpu --profile prod o --profile default
+# version dev con cpu --profile dev
+# version produccion con cuda --profile prodcuda
+# version dev con cuda --profile devcuda
+
 services:
   db:
     image: mariadb:latest
@@ -22,41 +27,7 @@ services:
     depends_on:
       - db
 
-  # Development services
-  app_dev:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    container_name: movies_app_dev
-    environment:
-      - DB_URL=mysql+pymysql://user:password@db/movies
-      - PYTHONPATH=src
-    ports:
-      - "8000:80"
-    volumes:
-      - ./src:/code/src
-      - ./logs:/code/logs
-    depends_on:
-      - db
-    profiles:
-      - dev
-
-  inference_service_dev:
-    build:
-      context: .
-      dockerfile: Dockerfile.inference.dev
-    container_name: inference_service_dev
-    ports:
-      - "8001:8001"
-    volumes:
-      - ./src:/code/src
-      - ./logs:/code/logs
-    depends_on:
-      - db
-    profiles:
-      - dev
-
-  # Production services
+  # Aplicación en producción - copia el código fuente en la imagen
   app:
     build:
       context: .
@@ -71,22 +42,125 @@ services:
       - ./logs:/code/logs
     depends_on:
       - db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: sh -c "rm -rf /code/data && /code/scripts/wait-for-it.sh db:3306 -t 60 -- fastapi run src/main.py --proxy-headers --port 80"
     profiles:
       - prod
+      - prodcuda
+      - default
 
+  # Versión de desarrollo - monta el código como volumen
+  app_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: movies_app_dev
+    environment:
+      - DB_URL=mysql+pymysql://user:password@db/movies
+      - PYTHONPATH=src
+      - ENVIRONMENT=dev
+    ports:
+      - "8000:80"
+    volumes:
+      - ./src:/code/src 
+      - ./logs:/code/logs
+    depends_on:
+      - db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: /code/scripts/wait-for-it.sh db:3306 -t 60 -- fastapi dev src/main.py --host 0.0.0.0 --port 80
+    profiles:
+      - dev
+      - devcuda
+
+  # Servicio de inferencia para producción - usa el comando por defecto en Dockerfile.inference
+  inference_service_cuda:
+    build:
+      context: .
+      dockerfile: Dockerfile.inference
+    container_name: inference_service
+    environment:
+      - PYTHONPATH=/code
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./logs:/code/logs
+    # Configuración opcional para acceso a la GPU - solo se usará si está disponible
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+              # Hacemos que el requisito de GPU sea opcional
+              options:
+                optional: true
+    profiles:
+      - prodcuda
+      
+ 
+  # Servicio de inferencia para desarrollo - sobreescribe el comando
+  inference_service_dev_cuda:
+    build:
+      context: .
+      dockerfile: Dockerfile.inference
+    container_name: inference_service_dev
+    environment:
+      - PYTHONPATH=/code
+      - ENVIRONMENT=dev
+    ports:
+      - "8001:8001"
+    volumes:
+    # se monta la carpeta entera asique por ese motivo en desarrollo aparecerá en los logs dos veces el log del sentiment analysis
+      - ./inference:/code/ia
+      - ./logs:/code/logs
+    command: fastapi dev ia/inference_service.py --host 0.0.0.0 --port 8001
+    # Configuración opcional para acceso a la GPU - solo se usará si está disponible
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+              # Hacemos que el requisito de GPU sea opcional
+              options:
+                optional: true
+    profiles:
+      - devcuda
+  
   inference_service:
     build:
       context: .
       dockerfile: Dockerfile.inference
     container_name: inference_service
+    environment:
+      - PYTHONPATH=/code
     ports:
       - "8001:8001"
     volumes:
       - ./logs:/code/logs
-    depends_on:
-      - db
     profiles:
       - prod
+      - default
+  inference_service_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.inference
+    container_name: inference_service_dev
+    environment:
+      - PYTHONPATH=/code
+      - ENVIRONMENT=dev
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./inference:/code/ia
+      - ./logs:/code/logs
+    command: fastapi dev ia/inference_service.py --host 0.0.0.0 --port 8001
 
+    profiles:
+      - dev
 volumes:
   mariadb_data:

@@ -1,0 +1,152 @@
+[
+  {
+    "title": "Inception", 
+    "director": "Christopher Nolan", 
+    "year": 2010, 
+    "genre": "Sci-Fi"
+  },
+  {
+    "title": "The Matrix", 
+    "director": "Lana Wachowski, Lilly Wachowski", 
+    "year": 1999, 
+    "genre": "Sci-Fi"
+  },
+  {
+    "title": "Interstellar", 
+    "director": "Christopher Nolan", 
+    "year": 2014, 
+    "genre": "Sci-Fi"
+  },
+  {
+    "title": "The Godfather", 
+    "director": "Francis Ford Coppola", 
+    "year": 1972, 
+    "genre": "Drama"
+  },
+  {
+    "title": "Pulp Fiction", 
+    "director": "Quentin Tarantino", 
+    "year": 1994, 
+    "genre": "Crime"
+  },
+  {
+    "title": "The Shawshank Redemption", 
+    "director": "Frank Darabont", 
+    "year": 1994, 
+    "genre": "Drama"
+  },
+  {
+    "title": "The Dark Knight", 
+    "director": "Christopher Nolan", 
+    "year": 2008, 
+    "genre": "Action"
+  },
+  {
+    "title": "Schindler's List", 
+    "director": "Steven Spielberg", 
+    "year": 1993, 
+    "genre": "Drama"
+  },
+  {
+    "title": "Todo sobre mi madre", 
+    "director": "Pedro Almodóvar", 
+    "year": 1999, 
+    "genre": "Drama"
+  },
+  {
+    "title": "El laberinto del fauno", 
+    "director": "Guillermo del Toro", 
+    "year": 2006, 
+    "genre": "Fantasy"
+  },
+  {
+    "title": "Volver", 
+    "director": "Pedro Almodóvar", 
+    "year": 2006, 
+    "genre": "Comedy Drama"
+  },
+  {
+    "title": "Mar adentro", 
+    "director": "Alejandro Amenábar", 
+    "year": 2004, 
+    "genre": "Drama"
+  },
+  {
+    "title": "REC", 
+    "director": "Jaume Balagueró, Paco Plaza", 
+    "year": 2007, 
+    "genre": "Horror"
+  },
+  {
+    "title": "El orfanato", 
+    "director": "J.A. Bayona", 
+    "year": 2007, 
+    "genre": "Horror"
+  },
+  {
+    "title": "Abre los ojos", 
+    "director": "Alejandro Amenábar", 
+    "year": 1997, 
+    "genre": "Thriller"
+  },
+  {
+    "title": "Forrest Gump", 
+    "director": "Robert Zemeckis", 
+    "year": 1994, 
+    "genre": "Drama"
+  },
+  {
+    "title": "Gladiator", 
+    "director": "Ridley Scott", 
+    "year": 2000, 
+    "genre": "Action"
+  },
+  {
+    "title": "The Lord of the Rings: The Fellowship of the Ring", 
+    "director": "Peter Jackson", 
+    "year": 2001, 
+    "genre": "Fantasy"
+  },
+  {
+    "title": "Titanic", 
+    "director": "James Cameron", 
+    "year": 1997, 
+    "genre": "Romance"
+  },
+  {
+    "title": "The Avengers", 
+    "director": "Joss Whedon", 
+    "year": 2012, 
+    "genre": "Action"
+  },
+  {
+    "title": "Avatar", 
+    "director": "James Cameron", 
+    "year": 2009, 
+    "genre": "Sci-Fi"
+  },
+  {
+    "title": "Jurassic Park", 
+    "director": "Steven Spielberg", 
+    "year": 1993, 
+    "genre": "Adventure"
+  },
+  {
+    "title": "Star Wars: Episode IV - A New Hope", 
+    "director": "George Lucas", 
+    "year": 1977, 
+    "genre": "Sci-Fi"
+  },
+  {
+    "title": "The Lion King", 
+    "director": "Roger Allers, Rob Minkoff", 
+    "year": 1994, 
+    "genre": "Animation"
+  },
+  {
+    "title": "Fight Club", 
+    "director": "David Fincher", 
+    "year": 1999, 
+    "genre": "Drama"
+  }
+]

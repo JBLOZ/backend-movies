@@ -1,0 +1,38 @@
+{
+  "positive": [
+    "Me pareció una película excelente y muy bien hecha.",
+    "Una obra maestra del cine, totalmente recomendable.",
+    "Me encantó esta película, la historia es fantástica.",
+    "Increíble película con actuaciones brillantes.",
+    "Una de las mejores películas que he visto últimamente.",
+    "Espectacular en todos los sentidos, muy recomendable.",
+    "Me fascina esta película, la he visto varias veces.",
+    "Obra maestra del director, impresionantes efectos visuales.",
+    "Muy buena trama y excelente desarrollo de personajes.",
+    "La película es genial, me mantuvo al borde del asiento."
+  ],
+  "negative": [
+    "No me gustó nada, una pérdida de tiempo.",
+    "Película aburrida y predecible, no la recomiendo.",
+    "Decepcionante en todos los aspectos.",
+    "Esperaba mucho más, me decepcionó bastante.",
+    "No vale la pena verla, guión horrible.",
+    "Demasiado lenta y tediosa, me costó terminarla.",
+    "Una de las peores películas que he visto.",
+    "No recomendaría esta película a nadie.",
+    "Totalmente sobrevalorada, no entiendo las buenas críticas.",
+    "Horrible actuación y pésimo guión."
+  ],
+  "neutral": [
+    "Es una película normal, ni buena ni mala.",
+    "Película correcta pero olvidable.",
+    "Entretenida pero nada especial.",
+    "Pasable para una tarde de domingo.",
+    "Tiene cosas buenas y malas, pero es aceptable.",
+    "No está mal, aunque esperaba algo más.",
+    "Una película más del montón.",
+    "Cumple con lo básico pero no sorprende.",
+    "Regular, no destaca en nada particular.",
+    "Es lo que esperaba, ni más ni menos."
+  ]
+}

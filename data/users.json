@@ -1,0 +1,77 @@
+[
+  {
+    "username": "admin",
+    "email": "admin@movies.com",
+    "password": "admin123"
+  },
+  {
+    "username": "Alice",
+    "email": "alice@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "Bob",
+    "email": "bob@example.com",
+    "password": "password456"
+  },
+  {
+    "username": "Charlie",
+    "email": "charlie@example.com",
+    "password": "password789"
+  },
+  {
+    "username": "David",
+    "email": "david@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "Eva",
+    "email": "eva@example.com",
+    "password": "password456"
+  },
+  {
+    "username": "Frank",
+    "email": "frank@example.com",
+    "password": "password789"
+  },
+  {
+    "username": "Grace",
+    "email": "grace@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "Hannah",
+    "email": "hannah@example.com",
+    "password": "password456"
+  },
+  {
+    "username": "Ian",
+    "email": "ian@example.com",
+    "password": "password789"
+  },
+  {
+    "username": "Julia",
+    "email": "julia@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "Kevin",
+    "email": "kevin@example.com",
+    "password": "password456"
+  },
+  {
+    "username": "Laura",
+    "email": "laura@example.com",
+    "password": "password789"
+  },
+  {
+    "username": "Mike",
+    "email": "mike@example.com",
+    "password": "password123"
+  },
+  {
+    "username": "Nina",
+    "email": "nina@example.com",
+    "password": "password456"
+  }
+]

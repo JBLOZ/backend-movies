@@ -1,4 +1,5 @@
-FROM python:3.12
+# Usar imagen base de PyTorch con CUDA 11.8 para la RTX 3070
+FROM pytorch/pytorch:2.6.0-cuda11.8-cudnn9-devel
 
 WORKDIR /code
 
@@ -7,12 +8,18 @@ RUN apt-get update && apt-get install -y dos2unix
 COPY ./requirements.inference.txt /code/requirements.inference.txt
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.inference.txt
 
-# Copy the source code into the container for production
-COPY ./src /code/src
+# Copiamos manteniendo la estructura original
+COPY ./inference /code/inference
 
-COPY ./scripts/inference_run.sh /code/scripts/inference_run.sh
-RUN dos2unix /code/scripts/inference_run.sh && chmod +x /code/scripts/inference_run.sh
+# Creamos un enlace simbólico para utils
+RUN ln -s /code/inference/utils /code/utils
 
-ENV PYTHONPATH=src
+# Set PYTHONPATH to include the root directory
+ENV PYTHONPATH=/code
+ENV ENVIRONMENT=prod
 
-CMD ["/code/scripts/inference_run.sh"]
+# Verificar la disponibilidad de CUDA
+RUN python -c "import torch; print('CUDA disponible:', torch.cuda.is_available()); print('Versión de CUDA:', torch.version.cuda if torch.cuda.is_available() else 'No disponible')"
+
+# Comando de ejecución ajustado a la nueva estructura de directorios
+CMD ["fastapi", "run", "inference/inference_service.py", "--port", "8001"]

@@ -1,6 +1,7 @@
 from typing import List, Optional
 from sqlmodel import SQLModel, Field, Relationship
 
+# Database entities (SQLModel)
 class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     username: str = Field(..., max_length=100)
@@ -16,13 +17,6 @@ class Movie(SQLModel, table=True):
     genre: str = Field(..., max_length=100)
     comments: List["Comment"] = Relationship(back_populates="movie")
 
-# Esquema de creación para validar la entrada de datos
-class MovieCreate(SQLModel):
-    title: str = Field(..., max_length=255)
-    director: str = Field(..., max_length=255)
-    year: int = Field(...)
-    genre: str = Field(..., max_length=100)
-
 class Comment(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     movie_id: int = Field(..., foreign_key="movie.id")
@@ -31,3 +25,6 @@ class Comment(SQLModel, table=True):
     sentiment: str = Field(...)
     movie: Optional[Movie] = Relationship(back_populates="comments")
     user: Optional[User] = Relationship(back_populates="comments")
+
+
+
